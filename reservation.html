@@ -1,0 +1,77 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+</head>
+<body>
+  <center>  <div class="jumbotron">
+  <h1 class="display-3">Hot Restaurant</h1>
+  <p class="lead"></p>
+  <hr class="my-4">
+  <p>Current reservations and waiting list</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Submit Reservation</a>
+     <a class="btn btn-primary btn-lg" href="/tables.html" role="button">View Tables</a>
+  </p>
+</div>
+  </center>
+  
+   <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><strong>Make Reservation</strong></h3>
+          </div>
+          <div class="panel-body">
+            <form method="POST" role="form">
+
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
+              </div>
+
+              <div class="form-group">
+                <label for="uniques">Unique ID</label>
+                <input type="text" class="form-control" id="unique">
+              </div>
+
+            </form>
+           
+          </div>
+        </div>
+        <script type="text/javascript">
+          $("#search-btn").on("click", function() {
+            var searchedCharacter = $("#character-search").val().trim();
+      
+            searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+      
+            $.get("/api/" + searchedCharacter, function(data) {
+              console.log(data);
+              if (data) {
+                $("#stats").show();
+                $("#name").text(data.name);
+                $("#phone").text(data.phone);
+                $("#email").text(data.email);
+                $("#unique").text(data.unique);
+              }
+              else {
+                $("#name").text("The force is not strong with this one. Your character was not found.");
+                $("#stats").hide();
+              }
+            });
+          });
+        </script>        
+</body>
+</html>
